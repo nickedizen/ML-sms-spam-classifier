@@ -55,6 +55,8 @@ class _DeteksiPesanState extends State<DeteksiPesan> {
                         onChanged: (value) {
                           text = value.toString();
                         },
+                        maxLines: null, 
+                        minLines: 1, 
                         decoration: InputDecoration(
                           hintText: 'Ketik pesan di sini...',
                           border: OutlineInputBorder(
@@ -113,7 +115,7 @@ class _DeteksiPesanState extends State<DeteksiPesan> {
                       const SizedBox(height: 8),
                       Text(
                         hasilPrediksi.isNotEmpty
-                            ? hasilPrediksi
+                            ? 'Pesan tersebut adalah pesan $hasilPrediksi'
                             : 'Belum ada hasil prediksi.',
                         style: const TextStyle(fontSize: 16),
                       ),
