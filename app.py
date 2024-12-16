@@ -35,7 +35,6 @@ def predict():
         # Ambil data input
         data = request.json
         text = str(data.get('text', ''))
-        print('Pengambilan data berhasil ' + text)
 
         # Cleaning
         text = re.sub(r'[^\w\s]', '', text)
@@ -55,11 +54,9 @@ def predict():
         stemmed_tokens = [stemmer.stem(word) for word in tokens]
 
         text_cleaned = ' '.join(stemmed_tokens)
-        print('Preprocess berhasil: ' + text_cleaned)
 
         # Transformasi text menggunakan TF-IDF
         text_tfidf = vectorizer.transform([text_cleaned])
-        print('TF IDF berhasil')
 
         # Prediksi menggunakan model
         prediction = model.predict(text_tfidf.toarray())[0]
@@ -78,7 +75,6 @@ def preprocess_text(text):
     text = re.sub(r'[^\w\s]', '', text)
     text = re.sub(r'\s+', ' ', text).strip()
     text = text.lower()
-    print('Cleaned text: ' + text)
 
     # Tokenizing
     tokens = word_tokenize(text)
@@ -93,40 +89,6 @@ def preprocess_text(text):
     stemmed_tokens = [stemmer.stem(word) for word in tokens]
 
     return ' '.join(stemmed_tokens)
-
-@app.route('/preprocess', methods=['GET'])
-def preprocess_text():
-
-    text = str(request.args['Query'])
-
-    # Cleaning
-    text = re.sub(r'[^\w\s]', '', text)
-    text = re.sub(r'\s+', ' ', text).strip()
-    text = text.lower()
-    print('Pre processing text: ' + text)
-
-    # Tokenizing
-    tokens = word_tokenize(text)
-    print('Pre processing token berhasil ')
-
-    # Stopword removal
-    stop_words = set(stopwords.words('indonesian'))
-    tokens = [word for word in tokens if word not in stop_words]
-    print('Stop word removal berhasil')
-
-    # Stemming
-    factory = StemmerFactory()
-    stemmer = factory.create_stemmer()
-    stemmed_tokens = [stemmer.stem(word) for word in tokens]
-
-    text_cleaned = ' '.join(stemmed_tokens)
-    print('Preprocess berhasil ' + text_cleaned)
-
-    print(f"Cleaned text: {text_cleaned}, Type: {type(text_cleaned)}")
-    print(f"Type of vectorizer: {type(vectorizer)}")
-
-    text_tfidf = vectorizer.transform([text_cleaned])
-    print('TF IDF berhasil')
 
 if __name__ == '__main__':
     app.run(debug=True)

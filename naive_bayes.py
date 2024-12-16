@@ -5,7 +5,7 @@ class NaiveBayes:
         self.prior = {}
         self.mean_std_dev = {}
         self.classes = []
-
+        
     def fit(self, X, y):
         self.classes = np.unique(y)
         total_docs = len(y)
@@ -15,8 +15,9 @@ class NaiveBayes:
             self.prior[cls] = cls_docs / total_docs
 
             cls_index = (y == cls)
-            cls_mean = X[cls_index].mean(axis=0)
-            cls_std_dev = X[cls_index].std(axis=0)
+            cls_mean = np.sum(X[cls_index], axis=0) / X[cls_index].shape[0]
+            variance = np.sum((X[cls_index] - cls_mean) ** 2, axis=0) / X[cls_index].shape[0]
+            cls_std_dev = np.sqrt(variance)
             cls_std_dev = np.where(cls_std_dev == 0, 1e-6, cls_std_dev)
             self.mean_std_dev[cls] = [cls_mean, cls_std_dev]
 
@@ -32,7 +33,7 @@ class NaiveBayes:
                     mu_ik = mean[i]
                     sigma_ik = std_dev[i]
                     log_coefficient = -np.log(sigma_ik * np.sqrt(2 * np.pi))
-                    log_exponent = -((doc[i] - mu_ik) ** 2) / (2 * (sigma_ik ** 2))
+                    log_exponent = -((doc[i] - mu_ik) ** 2) / (2 * (sigma_ik ** 2)) * np.log(np.e)
                     log_gaussian_prob = log_coefficient + log_exponent
                     log_prob += log_gaussian_prob
 
