@@ -20,6 +20,12 @@ class _DeteksiPesanState extends State<DeteksiPesan> {
       appBar: AppBar(
         title: const Text('Deteksi Pesan'),
         backgroundColor: Colors.blueAccent,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),  // Ikon tombol back
+          onPressed: () {
+            Navigator.pop(context); // Menutup halaman saat tombol back ditekan
+          },
+        ),
       ),
       body: SafeArea(
         child: Padding(
