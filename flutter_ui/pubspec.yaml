@@ -1,15 +1,18 @@
 name: flutter_ui
-description: "A new Flutter project."
-publish_to: 'none'
+description: A new Flutter project.
+
 version: 0.1.0
 
+publish_to: none
+
 environment:
-  sdk: ^3.5.4
+  sdk: ">=3.5.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  http:
+  http: 
+  video_player: ^2.5.0
 
 dev_dependencies:
   flutter_test:
@@ -18,3 +21,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - image/
