@@ -21,9 +21,9 @@ class _DeteksiPesanState extends State<DeteksiPesan> {
         title: const Text('Deteksi Pesan'),
         backgroundColor: Colors.blueAccent,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),  // Ikon tombol back
+          icon: Icon(Icons.arrow_back), 
           onPressed: () {
-            Navigator.pop(context); // Menutup halaman saat tombol back ditekan
+            Navigator.pop(context);
           },
         ),
       ),
